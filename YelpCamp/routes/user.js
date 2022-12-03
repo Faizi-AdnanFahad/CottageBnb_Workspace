@@ -10,7 +10,7 @@ router.route('/register')
 
 router.route('/login')
     .get(user.renderLoginForm) 
-    // passport.authenticalt will compare our creditials to the database according to `local` logic and flashes and redirects acordingly
+    // passport.authenticate will compare our creditials to the database according to `local` logic and flashes and redirects acordingly
     .post(passport.authenticate('local', { failureFlash: true, failureRedirect: 'login', keepSessionInfo: true, }), user.authenticateUser);
 
 router.get('/logout', user.logOut);

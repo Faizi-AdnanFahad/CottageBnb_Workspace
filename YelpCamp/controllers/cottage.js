@@ -1,4 +1,4 @@
-const Campground = require('../models/campground.js'); // model
+const Cottage = require('../models/cottage.js'); // model
 const { cloudinary } = require("../cloudinary"); // Cloudinary object with settups that we created
 
 /* To get coordinates infromation from the MapBox API - https://github.com/mapbox/mapbox-sdk-js */ 
@@ -6,10 +6,10 @@ const geoCode = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocodingClient = geoCode({ accessToken: mapBoxToken });
 
-let indexCampground = async (req, res, next) => {
+let indexCottage = async (req, res, next) => {
     try {
-        let campgrounds = await Campground.find({}); // get all campgrounds in our database.
-        res.render('campgrounds/index.ejs', { campgrounds });
+        let cottages = await Cottage.find({}); // get all campgrounds in our database.
+        res.render('campgrounds/index.ejs', { campgrounds: cottages });
     }
     catch (e) {
         next(e);
@@ -20,10 +20,10 @@ let renderNewForm = (req, res) => {
     res.render('campgrounds/new.ejs')
 }
 
-let createNewCampground = async (req, res, next) => {
+let createNewCottage = async (req, res, next) => {
     try {
         const { title, location, price, description, image } = req.body;
-        let campground = new Campground({ user: req.user._id, title: title, location: location, price: price, description: description, image: image });
+        let campground = new Cottage({ user: req.user._id, title: title, location: location, price: price, description: description, image: image });
 
         /* Get the geocoding information based on the user input from campground.location */
         let geoData = await geocodingClient.forwardGeocode({
@@ -44,10 +44,10 @@ let createNewCampground = async (req, res, next) => {
     }
 }
 
-let showCampground = async (req, res, next) => {
+let showCottage = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const campground = await Campground.findById(id).populate({
+        const campground = await Cottage.findById(id).populate({
             path: 'reviews',
             populate: {
                 path: 'user'
@@ -69,7 +69,7 @@ let showCampground = async (req, res, next) => {
 let renderEditForm = async (req, res, next) => {
     try {
         const { id } = req.params;
-        let campground = await Campground.findById(id);
+        let campground = await Cottage.findById(id);
         if (!campground) {
             req.flash('error', 'Campground was not found!');
             res.redirect('/campgrounds');
@@ -83,11 +83,11 @@ let renderEditForm = async (req, res, next) => {
     }
 }
 
-let updateCampground = async (req, res, next) => {
+let updateCottage = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { title, location, price, description, image } = req.body;
-        let campground = await Campground.findByIdAndUpdate(id, { title: title, location: location, price: price, description: description, image, image });
+        let campground = await Cottage.findByIdAndUpdate(id, { title: title, location: location, price: price, description: description, image, image });
         let newImages = req.files.map(f => ({ url: f.path, filename: f.filename })); // returns array
         campground.images.push(...newImages); // spread the elements of array so we only push the elements in the array and not the array itself
         await campground.save();
@@ -102,17 +102,17 @@ let updateCampground = async (req, res, next) => {
             await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
         }
         req.flash('success', 'Successfully updated the Campground!');
-        res.redirect(`/campgrounds/${id}`);
+        res.redirect(`/cottages/${id}`);
     }
     catch (e) {
         next(e);
     }
 }
 
-let deleteCampground = async (req, res, next) => {
+let deleteCottage = async (req, res, next) => {
     try {
         const { id } = req.params;
-        let campground = await Campground.findByIdAndDelete(id);
+        let campground = await Cottage.findByIdAndDelete(id);
         /* Deletes images from cloudinary */
         for (let image of campground.images) {
             await cloudinary.uploader.destroy(image.filename);
@@ -127,11 +127,11 @@ let deleteCampground = async (req, res, next) => {
 
 /* To be used in route files - Here specifically in campground's routes file */
 module.exports = {
-    indexCampground,
+    indexCottage: indexCottage,
     renderNewForm,
-    createNewCampground,
-    showCampground,
+    createNewCottage: createNewCottage,
+    showCottage: showCottage,
     renderEditForm,
-    updateCampground,
-    deleteCampground
+    updateCottage: updateCottage,
+    deleteCottage: deleteCottage
 };

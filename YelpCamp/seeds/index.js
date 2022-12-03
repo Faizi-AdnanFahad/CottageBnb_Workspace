@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Campground = require('../models/campground.js');
+const Cottage = require('../models/cottage.js');
 const Cities = require('./cities.js');
 const { places, descriptors } = require('./seedHelper.js');
 
@@ -25,17 +25,17 @@ main()
     });
 
 async function main() { // connects Mongoose to Mongod
-    await mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+    await mongoose.connect('mongodb://localhost:27017/cottage-bnb', {
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }); // creates a data base called 'yelp-camp'
+    }); // creates a data base called 'cottage-bnb'
 };
 
 /********************************************************/
 
 let seedDB = async () => {
-    await Campground.deleteMany({}); // delete everything in the database === Reset the database
-    for (let i = 0; i < 300; i++) {
+    await Cottage.deleteMany({}); // delete everything in the database === Reset the database
+    for (let i = 0; i < 5; i++) {
         // Get a random City and state from an array of 1000 location object.
         let random1000 = Math.floor((Math.random() * 1000));
         let randomCity = Cities[random1000].city;
@@ -49,10 +49,10 @@ let seedDB = async () => {
         let randomPlaces = places[randomPlacesNum];
 
         // Create a new model and add it to the database
-        let newCamp = new Campground({
+        let newCottage = new Cottage({
             title: `${randomDescriptor} ${randomPlaces}`,
             price: price,
-            user: '634b20768453725137c959a6', // so that when first seeded, the first 50 campgrounds have some users that submitted them.
+            user: '634b20768453725137c959a6', // so that when first seeded, the first 50 Cottages have some users that submitted them.
             location: `${randomCity}, ${randomState}`,
             images: [
                 {
@@ -73,7 +73,7 @@ let seedDB = async () => {
                 "type" : "Point", "coordinates" : [ Cities[random1000].longitude, Cities[random1000].latitude ] 
             }
     });
-        await newCamp.save();
+        await newCottage.save();
     }
 }
 

@@ -1,6 +1,6 @@
 const { campgroundSchema, reviewSchema } = require('./joiSchema.js'); // Joi Custom Schema - We have put it in a differnet file to respect the seperation of concern.
 const ExpressError = require('./utils/ExpressError.js'); // Custom Error Exception
-const Campground = require('./models/campground.js'); // model
+const Campground = require('./models/cottage.js'); // model
 const Review = require('./models/review.js'); // model
 
 // Checks to see if use is authenticated (Logged in) - Gives certain permissions accordingly

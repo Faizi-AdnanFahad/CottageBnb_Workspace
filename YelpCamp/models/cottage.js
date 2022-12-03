@@ -22,7 +22,7 @@ imageSchema.virtual('thumbnail').get(function() {
 /* Allows JSON.stringfy method to accept virtuals */
 const opts = { toJSON: { virtuals: true } };
 
-const CampGroundSchema = new Schema({
+const cottageSchema = new Schema({
     title: String,
     price: Number,
     images: [imageSchema],
@@ -39,7 +39,7 @@ const CampGroundSchema = new Schema({
             required: true
         }
     },
-    user: { // the user who added the campground
+    user: { // the user who added the Cottage
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
@@ -51,22 +51,22 @@ const CampGroundSchema = new Schema({
     ]
 }, opts);
 
-/* The properties will be added as part of each campground model which will have popupMarkup as one of elements 
-   that could store information about the a campground */
-CampGroundSchema.virtual('properties.popupMarkup').get(function() {
+/* The properties will be added as part of each Cottage model which will have popupMarkup as one of elements 
+   that could store information about the a Cottage */
+cottageSchema.virtual('properties.popupMarkup').get(function() {
     return `
     <strong>
-        <a href="/campgrounds/${this._id}">${this.title}</a>
+        <a href="/cottages/${this._id}">${this.title}</a>
     <strong>
     <p>${this.description.substring(0, 20)}...</p>`
 })
 
-/* Delete all the associated reviews when a campground is deleted */
-CampGroundSchema.post('findOneAndDelete', async function (theDeletedObjOrDoc) {
-    // In our case, theDeletedObjOrDoc is the Campground object that was deleted
+/* Delete all the associated reviews when a Cottage is deleted */
+cottageSchema.post('findOneAndDelete', async function (theDeletedObjOrDoc) {
+    // In our case, theDeletedObjOrDoc is the Cottage object that was deleted
     if (theDeletedObjOrDoc) {
         await Review.deleteMany({
-            // query _id in campground.reviews array and delete them.
+            // query _id in Cottage.reviews array and delete them.
             _id: {
                 $in: theDeletedObjOrDoc.reviews
             }
@@ -74,5 +74,5 @@ CampGroundSchema.post('findOneAndDelete', async function (theDeletedObjOrDoc) {
     }
 })
 
-let Campground = mongoose.model('Campground', CampGroundSchema); // will be changed to 'campgrounds' by Mongo
-module.exports = Campground;
+let Cottage = mongoose.model('Cottage', cottageSchema); // will be changed to 'Cottages' by Mongo
+module.exports = Cottage;

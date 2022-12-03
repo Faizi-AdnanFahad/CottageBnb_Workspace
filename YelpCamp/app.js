@@ -9,7 +9,7 @@ const methodOverride = require('method-override') // allows us to use PATCH and 
 const ejsMate = require('ejs-mate'); // boilerplate that reduces duplicates
 
 /* Defined Routes */
-const campgroundRoutes = require('./routes/campground.js');
+const cottageRoutes = require('./routes/cottage.js');
 const reviewRoutes = require('./routes/reviews.js');
 const userRoutes = require('./routes/user.js');
 
@@ -72,10 +72,10 @@ main()
     });
 
 async function main() { // connects Mongoose to Mongod
-    await mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+    await mongoose.connect('mongodb://localhost:27017/cottage-bnb', {
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }); // creates a data base called 'yelp-camp'
+    }); // creates a data base called 'cottage-bnb'
 };
 
 /***************************ROUTES*****************************/
@@ -84,13 +84,13 @@ async function main() { // connects Mongoose to Mongod
 app.use((req, res, next) => {
     /* The `if-statement` below helps us store the URLs/path a user wanted to go without being authenticated. The requested path is stored in a session because once the user is logged in, 
        to redirect them to the original path the wanted to go. Note that if a user logs in normally, nothing is stored in this session and in this case, the user
-       is redirected to `/campgrounds` which is addresed in the /login POST route in the /routes/user.js
+       is redirected to `/cottages` which is addresed in the /login POST route in the /routes/user.js
     */
     if (!['/login', '/'].includes(req.originalUrl)) {
         req.session.returnToUrl = req.originalUrl;
     }
     else {
-        req.session.returnToUrl = '/campgrounds';
+        req.session.returnToUrl = '/cottages';
     }
     // req.user is contains all the information about the user which was successfully authenticated by `passport`, undefined if hasn't been authenticated yet.
     res.locals.currentUser = req.user; // saves the current authenticated user to currentUser which is accessible via any ejs template. - req.user is provided by `passport` when a user is authenticated. - Used to hide or show links on UI based on wether is authenticated or not
@@ -102,8 +102,8 @@ app.use((req, res, next) => {
 /**************************************************************/
 // Accessing Routes
 app.use('/', userRoutes);
-app.use('/campgrounds', campgroundRoutes);
-app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/cottages', cottageRoutes);
+app.use('/cottages/:id/reviews', reviewRoutes);
 
 app.get('/', async (req, res) => {
     res.render("home.ejs");
