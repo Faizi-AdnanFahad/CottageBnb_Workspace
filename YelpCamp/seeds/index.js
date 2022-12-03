@@ -52,7 +52,7 @@ let seedDB = async () => {
         let newCottage = new Cottage({
             title: `${randomDescriptor} ${randomPlaces}`,
             price: price,
-            user: '634b20768453725137c959a6', // so that when first seeded, the first 50 Cottages have some users that submitted them.
+            user: '638aa7c2db008936fd6acf5c', // so that when first seeded, the first 50 Cottages have some users that submitted them.
             location: `${randomCity}, ${randomState}`,
             images: [
                 {

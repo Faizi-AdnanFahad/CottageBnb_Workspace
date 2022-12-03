@@ -8,8 +8,8 @@ const geocodingClient = geoCode({ accessToken: mapBoxToken });
 
 let indexCottage = async (req, res, next) => {
     try {
-        let cottages = await Cottage.find({}); // get all campgrounds in our database.
-        res.render('campgrounds/index.ejs', { campgrounds: cottages });
+        let cottages = await Cottage.find({}); // get all cottages in our database.
+        res.render('cottages/index.ejs', { campgrounds: cottages });
     }
     catch (e) {
         next(e);
@@ -17,27 +17,27 @@ let indexCottage = async (req, res, next) => {
 };
 
 let renderNewForm = (req, res) => {
-    res.render('campgrounds/new.ejs')
+    res.render('cottages/new.ejs')
 }
 
 let createNewCottage = async (req, res, next) => {
     try {
         const { title, location, price, description, image } = req.body;
-        let campground = new Cottage({ user: req.user._id, title: title, location: location, price: price, description: description, image: image });
+        let cottage = new Cottage({ user: req.user._id, title: title, location: location, price: price, description: description, image: image });
 
         /* Get the geocoding information based on the user input from campground.location */
         let geoData = await geocodingClient.forwardGeocode({
-            query: campground.location,
+            query: cottage.location,
             limit: 1
           }).send();
-        campground.geometry = geoData.body.features[0].geometry; // retrieve the logtitude and latitude
+        cottage.geometry = geoData.body.features[0].geometry; // retrieve the logtitude and latitude
         // the information about parsed files(includes image information) could be found in `req.files`
         /* Maps the url and filename from the parsed image from cloudinary with multer and the returned is an array which is mapped to the image's array in campground. */
-        campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
-        await campground.save();
-        // Create a new flash when a new campground is successfully created!
-        req.flash('success', 'Successfully added a new Campground!');
-        res.redirect(`/campgrounds/${campground._id}`);
+        cottage.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
+        await cottage.save();
+        // Create a new flash when a new Cottage is successfully created!
+        req.flash('success', 'Successfully added a new Cottage!');
+        res.redirect(`/cottages/${cottage._id}`);
     }
     catch (e) {
         next(e); // pass the error to the default error handler (router.use)
@@ -47,18 +47,18 @@ let createNewCottage = async (req, res, next) => {
 let showCottage = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const campground = await Cottage.findById(id).populate({
+        const cottage = await Cottage.findById(id).populate({
             path: 'reviews',
             populate: {
                 path: 'user'
             }
         }).populate('user'); // expand the reviews too so they are accssible in the .ejs file. - If we don't do that, we will only have the IDs of reviews.
-        if (!campground) {
-            req.flash('error', 'Campground was not found!');
-            res.redirect('/campgrounds');
+        if (!cottage) {
+            req.flash('error', 'Cottage was not found!');
+            res.redirect('/cottages');
         }
         else {
-            res.render('campgrounds/show.ejs', { campground });
+            res.render('cottages/show.ejs', { campground: cottage });
         }
     }
     catch (e) {
@@ -69,13 +69,13 @@ let showCottage = async (req, res, next) => {
 let renderEditForm = async (req, res, next) => {
     try {
         const { id } = req.params;
-        let campground = await Cottage.findById(id);
-        if (!campground) {
-            req.flash('error', 'Campground was not found!');
-            res.redirect('/campgrounds');
+        let cottage = await Cottage.findById(id);
+        if (!cottage) {
+            req.flash('error', 'Cottage was not found!');
+            res.redirect('/cottages');
         }
         else {
-            res.render('campgrounds/edit.ejs', { campground });
+            res.render('cottages/edit.ejs', { campground: cottage });
         }
     }
     catch (e) {
@@ -87,10 +87,10 @@ let updateCottage = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { title, location, price, description, image } = req.body;
-        let campground = await Cottage.findByIdAndUpdate(id, { title: title, location: location, price: price, description: description, image, image });
+        let cottage = await Cottage.findByIdAndUpdate(id, { title: title, location: location, price: price, description: description, image, image });
         let newImages = req.files.map(f => ({ url: f.path, filename: f.filename })); // returns array
-        campground.images.push(...newImages); // spread the elements of array so we only push the elements in the array and not the array itself
-        await campground.save();
+        cottage.images.push(...newImages); // spread the elements of array so we only push the elements in the array and not the array itself
+        await cottage.save();
         /* Deletes images */
         if (req.body.deleteImages) {
             /* Deletes images from cloudinary */
@@ -99,9 +99,9 @@ let updateCottage = async (req, res, next) => {
                 await cloudinary.uploader.destroy(filename);
             }
             /* Deletes images from database */
-            await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
+            await cottage.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
         }
-        req.flash('success', 'Successfully updated the Campground!');
+        req.flash('success', 'Successfully updated the Cottage!');
         res.redirect(`/cottages/${id}`);
     }
     catch (e) {
@@ -112,20 +112,20 @@ let updateCottage = async (req, res, next) => {
 let deleteCottage = async (req, res, next) => {
     try {
         const { id } = req.params;
-        let campground = await Cottage.findByIdAndDelete(id);
+        let cottage = await Cottage.findByIdAndDelete(id);
         /* Deletes images from cloudinary */
-        for (let image of campground.images) {
+        for (let image of cottage.images) {
             await cloudinary.uploader.destroy(image.filename);
         }
-        req.flash('success', 'Successfully deleted the Campground!');
-        res.redirect('/campgrounds');
+        req.flash('success', 'Successfully deleted the Cottage!');
+        res.redirect('/cottages');
     }
     catch (e) {
         next(e);
     }
 }
 
-/* To be used in route files - Here specifically in campground's routes file */
+/* To be used in route files - Here specifically in Cottage's routes file */
 module.exports = {
     indexCottage: indexCottage,
     renderNewForm,

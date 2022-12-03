@@ -7,11 +7,11 @@
         <div class="card">
 
             <!-- Carousel to display images -->
-            <div id="campgroundCarousel" class="carousel slide" data-ride="carousel">
+            <div id="cottageCarousel" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#campgroundCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#campgroundCarousel" data-slide-to="1"></li>
-                    <li data-target="#campgroundCarousel" data-slide-to="2"></li>
+                    <li data-target="#cottageCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#cottageCarousel" data-slide-to="1"></li>
+                    <li data-target="#cottageCarousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
                     <!-- Load all images from the uploaded images - The src of the images are stored in cloudinary -->
@@ -28,10 +28,10 @@
                     <% } %>
                 </div>
                 <% if (campground.images.length> 1) { %>
-                    <a class="carousel-control-prev" href="#campgroundCarousel" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#cottageCarousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     </a>
-                    <a class="carousel-control-next" href="#campgroundCarousel" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#cottageCarousel" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </a>
                     <% } %>
@@ -68,8 +68,8 @@
             <!-- Show the edit and delete button only if there exists a user && a campground belongs to the logged user -->
             <% if (currentUser && campground.user.equals(currentUser._id)) { %>
                 <div class="card-body">
-                    <a class="btn btn-info" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                    <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                    <a class="btn btn-info" href="/cottages/<%= campground._id %>/edit">Edit</a>
+                    <form class="d-inline" action="/cottages/<%= campground._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-danger">Delete</button>
                     </form>
                 </div>
@@ -78,7 +78,7 @@
     </div>
     <div class="col-6">
         <% if (currentUser) { %>
-            <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" class="needs-validation" novalidate>
+            <form action="/cottages/<%= campground._id %>/reviews" method="POST" class="needs-validation" novalidate>
                 <div class="border mt-4 p-3">
                     <h2>Leave a Review</h2>
                     <!-- Star selection functionality - Third Party code -->
@@ -133,7 +133,7 @@
                                         </p>
                                         <% if (currentUser && review.user.equals(currentUser._id)) { %>
                                             <form
-                                                action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                action="/cottages/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
                                                 method="POST">
                                                 <button class="btn btn-sm btn-danger">Delete</button>
                                             </form>
