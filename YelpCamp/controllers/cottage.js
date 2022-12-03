@@ -9,7 +9,7 @@ const geocodingClient = geoCode({ accessToken: mapBoxToken });
 let indexCottage = async (req, res, next) => {
     try {
         let cottages = await Cottage.find({}); // get all cottages in our database.
-        res.render('cottages/index.ejs', { campgrounds: cottages });
+        res.render('cottages/index.ejs', { cottages: cottages });
     }
     catch (e) {
         next(e);
@@ -25,14 +25,14 @@ let createNewCottage = async (req, res, next) => {
         const { title, location, price, description, image } = req.body;
         let cottage = new Cottage({ user: req.user._id, title: title, location: location, price: price, description: description, image: image });
 
-        /* Get the geocoding information based on the user input from campground.location */
+        /* Get the geocoding information based on the user input from cottage.location */
         let geoData = await geocodingClient.forwardGeocode({
             query: cottage.location,
             limit: 1
           }).send();
         cottage.geometry = geoData.body.features[0].geometry; // retrieve the logtitude and latitude
         // the information about parsed files(includes image information) could be found in `req.files`
-        /* Maps the url and filename from the parsed image from cloudinary with multer and the returned is an array which is mapped to the image's array in campground. */
+        /* Maps the url and filename from the parsed image from cloudinary with multer and the returned is an array which is mapped to the image's array in cottage. */
         cottage.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
         await cottage.save();
         // Create a new flash when a new Cottage is successfully created!
@@ -58,7 +58,7 @@ let showCottage = async (req, res, next) => {
             res.redirect('/cottages');
         }
         else {
-            res.render('cottages/show.ejs', { campground: cottage });
+            res.render('cottages/show.ejs', { cottage: cottage });
         }
     }
     catch (e) {
@@ -75,7 +75,7 @@ let renderEditForm = async (req, res, next) => {
             res.redirect('/cottages');
         }
         else {
-            res.render('cottages/edit.ejs', { campground: cottage });
+            res.render('cottages/edit.ejs', { cottage: cottage });
         }
     }
     catch (e) {

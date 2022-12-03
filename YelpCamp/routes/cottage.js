@@ -6,8 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const router = express.Router();
-const { isLoggedin, validateCampground, authorizeUser } = require('../middlewares.js');
-const cottage = require('../controllers/cottage.js'); // Campground Controller
+const { isLoggedin, validateCottage: validateCottage, authorizeUser } = require('../middlewares.js');
+const cottage = require('../controllers/cottage.js'); // Cottage Controller
 
 /* Used for image upload */
 const multer = require('multer'); // The middleware that helps us upload/parse images from a form
@@ -18,7 +18,7 @@ router.route('/')
     // 1. GET /cottages - lists the list of all cottages
     .get(cottage.indexCottage)
     // 3. POST /cottages - creats a new cottages
-    .post(isLoggedin, upload.array('image'), validateCampground, cottage.createNewCottage);
+    .post(isLoggedin, upload.array('image'), validateCottage, cottage.createNewCottage);
 
 // 3. GET /cottages/new - Form to add a new cottages
 router.get('/new', isLoggedin, cottage.renderNewForm);
@@ -27,7 +27,7 @@ router.route('/:id')
     // 2. GET /cottages/:id - Get a specific cottages
     .get(cottage.showCottage)
     // 6. PUT /cottages/:id - updates a cottages
-    .put(isLoggedin, authorizeUser, upload.array('image'), validateCampground, cottage.updateCottage)
+    .put(isLoggedin, authorizeUser, upload.array('image'), validateCottage, cottage.updateCottage)
     // 7. DELETE /cottages/:id - Deletes a cottages
     .delete(isLoggedin, authorizeUser, cottage.deleteCottage);
 

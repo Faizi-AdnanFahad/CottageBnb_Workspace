@@ -5,11 +5,11 @@
     <div class="row mb-5">
         <div class="col-md-8 offset-md-2">
             <h1>Edit Cottage</h1>
-            <form action="/cottages/<%= campground._id %>?_method=PUT" method="POST" class="needs-validation"
+            <form action="/cottages/<%= cottage._id %>?_method=PUT" method="POST" class="needs-validation"
                 enctype="multipart/form-data" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="title">Title: </label>
-                    <input class="form-control" type="text" name="title" id="title" value="<%= campground.title %>"
+                    <input class="form-control" type="text" name="title" id="title" value="<%= cottage.title %>"
                         required>
                     <div class="valid-feedback">
                         Looks good!
@@ -21,7 +21,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="location">Location: </label>
                     <input class="form-control" type="text" name="location" id="location"
-                        value="<%= campground.location %>" required>
+                        value="<%= cottage.location %>" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -34,7 +34,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="price">$</span>
                         <input id="price" type="text" name="price" class="form-control" placeholder="0.00"
-                            aria-label="price" aria-describedby="price" value="<%= campground.price %>" required>
+                            aria-label="price" aria-describedby="price" value="<%= cottage.price %>" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -47,7 +47,7 @@
                     <label class="form-label" for="description">Description: </label>
                     <div class="form-floating mb-3">
                         <textarea name="description" class="form-control" placeholder="Description" id="description"
-                            required><%= campground.description %></textarea>
+                            required><%= cottage.description %></textarea>
                         <label for="description">Description</label>
                         <div class="valid-feedback">
                             Looks good!
@@ -64,11 +64,11 @@
                 <!-- Adding checkboxes for images to delete -->
                 <h6>Delete images</h6>
                 <div class="deleteImages">
-                    <% for (let i=0; i < campground.images.length; i ++) { %>
+                    <% for (let i=0; i < cottage.images.length; i ++) { %>
                         <div class="imageLabel">
-                            <img class="img-thumbnail" src="<%= campground.images[i].thumbnail %>">
-                            <!-- The name will help us to get an array where the checkboxes are checked. Each checkbox which is checked will have its value(campground.images[i].filename) inside array which is then used to delete images from cloudinary and database -->
-                            <input class="imageCheckbox" type="checkbox" id="image-<%= i %>" name="deleteImages[]"value="<%= campground.images[i].filename %>">
+                            <img class="img-thumbnail" src="<%= cottage.images[i].thumbnail %>">
+                            <!-- The name will help us to get an array where the checkboxes are checked. Each checkbox which is checked will have its value(cottage.images[i].filename) inside array which is then used to delete images from cloudinary and database -->
+                            <input class="imageCheckbox" type="checkbox" id="image-<%= i %>" name="deleteImages[]"value="<%= cottage.images[i].filename %>">
                         </div>
                     <% } %>
     

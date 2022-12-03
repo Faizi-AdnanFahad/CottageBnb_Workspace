@@ -1,6 +1,6 @@
 const Joi = require('joi'); // boilerplate that reduces duplicates
 
-module.exports.campgroundSchema = Joi.object({
+module.exports.cottageSchema = Joi.object({
     title: Joi.string().required(),
     price: Joi.number().min(0).required(),
     location: Joi.required(),

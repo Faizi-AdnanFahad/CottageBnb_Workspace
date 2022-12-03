@@ -16,7 +16,7 @@ let signUp = async (req, res, next) => {
             }
             else {
                 req.flash('success', 'A new user was successfully created!');
-                res.redirect('/campgrounds');
+                res.redirect('/cottages');
             }
         });
     }
@@ -37,7 +37,7 @@ let logOut = (req, res) => {
         }
         else {
             req.flash('success', "You have successfully signed out!");
-            res.redirect('/campgrounds');
+            res.redirect('/cottages');
         }
     });
 }
