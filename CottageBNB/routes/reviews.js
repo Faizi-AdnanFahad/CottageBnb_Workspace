@@ -9,7 +9,7 @@ const review = require('../controllers/review.js'); // Review Controller
 // The POST /cottages/:id/reviews route that saves a review for a cottage
 router.post('/', isLoggedin, validateReviews, review.makeReview);
 
-// The DELETE route will delete if a review is deleted on an individual campgroud. It deletes the review itself and also its reference from the list of reviews in the cottage.
+// The DELETE route will delete if a review is deleted on an individual cottage. It deletes the review itself and also its reference from the list of reviews in the cottage.
 router.delete('/:reviewId', isLoggedin, authorizeUserToDeleteReview, review.deleteReview);
 
 module.exports = router;
