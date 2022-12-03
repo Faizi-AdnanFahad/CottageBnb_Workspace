@@ -1,0 +1,52 @@
+<% layout('layouts/Boilerplate.ejs') %>
+
+<!-- Cluster Map Div -->
+<div id="cluster-map"></div>
+
+    <h1>All Campgrounds</h1>
+    <ul>
+        <% for (let campground of campgrounds) { %>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- If no images were found add a default image -->
+                        <% if (campground.images.length == 0) { %>
+                            <img class="img-fluid" alt="" src="https://res.cloudinary.com/dfkwvksuu/image/upload/v1668205152/YelpCamp/apnuzkgskx6tbbjaoyj3.avif">
+                        <% } else { %>
+                            <img class="img-fluid" alt="" src="<%=campground.images[0].url%>">
+                        <% } %> 
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= campground.title %>
+                            </h5>
+                            <p class="card-text">
+                                <%= campground.description %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= campground.location%>
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View
+                                <%=campground.title%></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </ul>
+
+<!-- The token is needed in the .js file -->
+<script>
+    MAPBOX_TOKEN = '<%-process.env.MAPBOX_TOKEN%>'
+    /* Passing all campgrounds so it could be used in clusterMap.js with the exception of making it a JSON file and formatting it so its matching the format
+       the original clustermap file that had a key `features`. Similar to https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson*/
+    let campgrounds = {features: <%-JSON.stringify(campgrounds)%>}
+</script>
+<script src="/javascripts/clusterMap.js"></script>
+
+    <!-- Test to add custom javascript -->
+    <!-- <button id="changeBackground">Change Background</button> -->
+    <!-- <script src="/javascripts/test.js"></script> -->

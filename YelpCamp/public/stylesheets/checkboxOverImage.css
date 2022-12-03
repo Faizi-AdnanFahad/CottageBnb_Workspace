@@ -1,0 +1,21 @@
+.deleteImages {
+    height: 340px;
+}
+
+.imageLabel {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-left: 10px;
+}
+
+.imageCheckbox {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#editCamp {
+    display: block;
+}

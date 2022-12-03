@@ -1,0 +1,72 @@
+<% layout('layouts/Boilerplate.ejs') %>
+
+    <div class="row mb-5">
+        <div class="col-md-8 offset-md-2">
+            <h1>New Campground</h1>
+            <form action="/campgrounds" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title: </label>
+                    <input class="form-control" type="text" name="title" id="title" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter a title!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location: </label>
+                    <input class="form-control" type="text" name="location" id="location" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter a title!
+                    </div>
+                </div>
+                <!-- <div class="mb-3">
+                    <label class="form-label" for="image">Image Url: </label>
+                    <input class="form-control" type="text" name="image" id="image" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter a title!
+                    </div>
+                </div> -->
+                <div class="mb-3">
+                    <label class="form-label" for="price">Campground Price: </label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="price">$</span>
+                        <input id="price" type="text" name="price" class="form-control" placeholder="0.00"
+                            aria-label="price" aria-describedby="price" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please Enter a title!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description: </label>
+                    <div class="form-floating mb-3">
+                        <textarea name="description" class="form-control" placeholder="Description" id="description"
+                            required></textarea>
+                        <label for="description">Description</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please Enter a title!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Add images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+                <button class="btn btn-success">Add Campground</button>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,16 @@
+Steps Used to build this big project:
+    1. Create CRUD Functionalities
+        Prereq:
+            a) Create Simple Main models
+            b) Create a seed script to initalize a starting fake data
+        a) Create index(main), New, show, edit and delete routes and pages with CRUD functionalities.
+    2. Add some basic style for making navigation easier
+    3. Handling basic errors with client-side validations, custom error class with a page template and JOI validations for back-end client validation. 
+    4. Creating any other model that would interact with main model(Campground) such as 'Reviews' and buidling its CRUD... alongside connecting these models
+    5. Setting up flash for some message pop-ups
+    6. Adding authentications such as login/logout pages and model to handle users
+    7. Basic authorization to authenticitated users
+    8. Feature: Creating Reviews model and assosicating with Users and campgrounds
+    9: Feature: Photo Upload
+    10: Feature: Adding maps with 'Mapbox'
+    11. Cleaning up the styles
