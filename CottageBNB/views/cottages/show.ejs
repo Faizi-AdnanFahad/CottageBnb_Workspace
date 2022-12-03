@@ -76,11 +76,15 @@
                 <% } %>
         </div>
     </div>
+
     <div class="col-6">
         <% if (currentUser) { %>
             <form action="/cottages/<%= cottage._id %>/reviews" method="POST" class="needs-validation" novalidate>
                 <div class="border mt-4 p-3">
-                    <h2>Leave a Review</h2>
+                <!-- Mapbox map -->
+                <div id='map'></div>
+                    <br>
+                    <h2 class="mb-10">Leave a Review</h2>
                     <!-- Star selection functionality - Third Party code -->
                     <fieldset class="starability-basic">
                         <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
@@ -107,8 +111,6 @@
                 </div>
             </form>
             <% } %>
-            <!-- Mapbox map -->
-            <div id='map'></div>
             <div class="mt-3">
                 <h2>Reviews</h2>
                 <% for (let review of cottage.reviews) { %>

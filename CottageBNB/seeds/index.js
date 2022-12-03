@@ -56,17 +56,18 @@ let seedDB = async () => {
             location: `${randomCity}, ${randomState}`,
             images: [
                 {
-                    "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1668031877/YelpCamp/fz2ae1geid8l2uqqvow9.avif",
-                    "filename": "YelpCamp/dxdmx413mx42timadwug",
+                    "url": "https://images.unsplash.com/photo-1588192805356-858f33ad318a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
+                    "filename": "CottageBNB/dxdmx413mx42timadwug",
                 },
                 {
-                    "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1668036265/YelpCamp/crqitupncd0tgboclkep.avif",
-                    "filename": "YelpCamp/k3n6gimno2qgjrh7xy4h"
+                    "url": "https://images.unsplash.com/photo-1587061949409-02df41d5e562?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+                    "filename": "CottageBNB/k3n6gimno2qgjrh7xy4h"
                 },
                 {
-                    "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1668205152/YelpCamp/xtnhz3t79f1lbbngzdu1.avif",
-                    "filename": "YelpCamp/fz2ae1geid8l2uqqvow9",
-                }]
+                    "url": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
+                    "filename": "CottageBNB/fz2ae1geid8l2uqqvow9",
+                }
+                ]
             , 
             description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt dolorem quo et assumenda tenetur reprehenderit, illo doloribus. Magnam amet iure expedita at quia? Natus culpa libero minima, quos eveniet omnis.',
             geometry: { 
