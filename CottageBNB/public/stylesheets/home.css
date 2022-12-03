@@ -31,7 +31,6 @@ body {
 }
 
 /* Remving shadow from the second btn */
-.btn-secondary, .btn-secondary:hover{
+.btn-secondary{
     color: #333;
-    text-shadow: none;
 }
