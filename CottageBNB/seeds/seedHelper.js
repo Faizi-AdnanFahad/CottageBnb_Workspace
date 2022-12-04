@@ -37,3 +37,23 @@ module.exports.places = [
     'High',
     'Sierra'
 ]
+
+module.exports.facilites = [
+    'beaches',
+    'rivers',
+    'library',
+    'restaurants',
+    'campgrounds',
+    'golf courts',
+    'swimming pools',
+    'local bars',
+    'gym',
+    'hospitals',
+    'bakeries',
+    'shopping malls',
+    'coffee shops',
+    'markets',
+    'plazas',
+    'barbers',
+    'cafes'
+]

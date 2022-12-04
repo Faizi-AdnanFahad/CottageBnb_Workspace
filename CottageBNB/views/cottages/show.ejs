@@ -78,11 +78,11 @@
     </div>
 
     <div class="col-6">
+        <div id='map'></div>
         <% if (currentUser) { %>
             <form action="/cottages/<%= cottage._id %>/reviews" method="POST" class="needs-validation" novalidate>
                 <div class="border mt-4 p-3">
                 <!-- Mapbox map -->
-                <div id='map'></div>
                     <br>
                     <h2 class="mb-10">Leave a Review</h2>
                     <!-- Star selection functionality - Third Party code -->

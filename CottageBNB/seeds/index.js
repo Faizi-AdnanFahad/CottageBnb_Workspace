@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Cottage = require('../models/cottage.js');
 const Cities = require('./cities.js');
-const { places, descriptors } = require('./seedHelper.js');
+const { places, descriptors, facilites } = require('./seedHelper.js');
 
 /********************************************************/
 
@@ -35,7 +35,7 @@ async function main() { // connects Mongoose to Mongod
 
 let seedDB = async () => {
     await Cottage.deleteMany({}); // delete everything in the database === Reset the database
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 100; i++) {
         // Get a random City and state from an array of 1000 location object.
         let random1000 = Math.floor((Math.random() * 1000));
         let randomCity = Cities[random1000].city;
@@ -44,9 +44,12 @@ let seedDB = async () => {
         // Get a random Descriptor and place, combine it to form a random title.
         let randomDescriptorNum = Math.floor(Math.random() * descriptors.length);
         let randomPlacesNum = Math.floor(Math.random() * places.length);
+        let randomFacilityNum = Math.floor(Math.random() * facilites.length);
         let price = Math.floor(Math.random() * 100);
+        let minAway = Math.floor(Math.random() * 20);
         let randomDescriptor = descriptors[randomDescriptorNum];
         let randomPlaces = places[randomPlacesNum];
+        let randomFacility = facilites[randomFacilityNum];
 
         // Create a new model and add it to the database
         let newCottage = new Cottage({
@@ -69,7 +72,7 @@ let seedDB = async () => {
                 }
                 ]
             , 
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt dolorem quo et assumenda tenetur reprehenderit, illo doloribus. Magnam amet iure expedita at quia? Natus culpa libero minima, quos eveniet omnis.',
+            description: `Only ${minAway} minutes away from ${randomFacility}!`,
             geometry: { 
                 "type" : "Point", "coordinates" : [ Cities[random1000].longitude, Cities[random1000].latitude ] 
             }

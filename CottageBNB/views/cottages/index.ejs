@@ -1,41 +1,33 @@
 <% layout('layouts/Boilerplate.ejs') %>
+<link rel="stylesheet" href="/stylesheets/index.css">
 
 <!-- Cluster Map Div -->
 <div id="cluster-map"></div>
 
-    <h1>All Cottages</h1>
     <ul>
-        <% for (let cottage of cottages) { %>
-            <div class="card mb-3">
-                <div class="row">
-                    <div class="col-md-4">
-                        <!-- If no images were found add a default image -->
-                        <% if (cottage.images.length == 0) { %>
-                            <img class="img-fluid" alt="" src="https://res.cloudinary.com/dfkwvksuu/image/upload/v1668205152/YelpCamp/apnuzkgskx6tbbjaoyj3.avif">
-                        <% } else { %>
-                            <img class="img-fluid" alt="" src="<%=cottage.images[0].url%>">
-                        <% } %> 
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= cottage.title %>
-                            </h5>
-                            <p class="card-text">
-                                <%= cottage.description %>
-                            </p>
+        <div class="container">
+            <% for (let cottage of cottages) { %>
+                <div class="card">
+                <!-- If no images were found add a default image -->
+                <% if (cottage.images.length == 0) { %>
+                    <img class="img-card-top" alt="" src="https://res.cloudinary.com/dfkwvksuu/image/upload/v1668205152/YelpCamp/apnuzkgskx6tbbjaoyj3.avif">
+                <% } else { %>
+                    <img class="img-card-top" alt="" src="<%=cottage.images[0].url%>">
+                <% } %> 
+                <div class="card-body">
+                    <h5 class="card-title"><%= cottage.title %></h5>
+                    <p class="card-text"><%= cottage.description %></p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <%= cottage.location%>
                                 </small>
                             </p>
-                            <a class="btn btn-primary" href="/cottages/<%=cottage._id%>">View
-                                <%=cottage.title%></a>
-                        </div>
-                    </div>
+                    <a class="btn btn-primary" href="/cottages/<%=cottage._id%>">View
+                                <%=cottage.title%></a>                </div>
                 </div>
-            </div>
             <% } %>
+        </div>
+
     </ul>
 
 <!-- The token is needed in the .js file -->
