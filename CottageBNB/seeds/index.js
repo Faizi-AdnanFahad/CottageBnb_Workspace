@@ -46,7 +46,7 @@ let seedDB = async () => {
         let randomPlacesNum = Math.floor(Math.random() * places.length);
         let randomFacilityNum = Math.floor(Math.random() * facilites.length);
         let price = Math.floor(Math.random() * 100);
-        let minAway = Math.floor(Math.random() * 20);
+        let minAway = Math.floor(Math.random() * 20) + 1;
         let randomDescriptor = descriptors[randomDescriptorNum];
         let randomPlaces = places[randomPlacesNum];
         let randomFacility = facilites[randomFacilityNum];
@@ -69,14 +69,26 @@ let seedDB = async () => {
                 {
                     "url": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
                     "filename": "CottageBNB/fz2ae1geid8l2uqqvow9",
-                }
-                ]
-            , 
+                },
+                { "url": "https://images.unsplash.com/photo-1588192805356-858f33ad318a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80", "filename": "CottageBNB/dxdmx413mx42timadwug" },
+                { "url": "https://images.unsplash.com/photo-1587061949409-02df41d5e562?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80", "filename": "CottageBNB/k3n6gimno2qgjrh7xy4h" },
+                { "url": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80", "filename": "CottageBNB/fz2ae1geid8l2uqqvow9" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197412/CottageBNB/wssuye2oitdwetdzo0qs.avif", "filename": "CottageBNB/wssuye2oitdwetdzo0qs" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197412/CottageBNB/i1aydk9wuzcvhl8n5zpk.avif", "filename": "CottageBNB/i1aydk9wuzcvhl8n5zpk" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197413/CottageBNB/vwaqhmq5jncjhlw36vfr.avif", "filename": "CottageBNB/vwaqhmq5jncjhlw36vfr" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197413/CottageBNB/yvaoqwnrqgcsktwbdrf3.avif", "filename": "CottageBNB/yvaoqwnrqgcsktwbdrf3" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197413/CottageBNB/duheoq6k3mbwrgrectgi.avif", "filename": "CottageBNB/duheoq6k3mbwrgrectgi" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197413/CottageBNB/txmbvqo3sdogdg6f6x3d.avif", "filename": "CottageBNB/txmbvqo3sdogdg6f6x3d" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197414/CottageBNB/ducwh1i80xfzj9oua3kn.avif", "filename": "CottageBNB/ducwh1i80xfzj9oua3kn" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197414/CottageBNB/x9pegltdv4aqfyey0b1j.avif", "filename": "CottageBNB/x9pegltdv4aqfyey0b1j" },
+                { "url": "https://res.cloudinary.com/dfkwvksuu/image/upload/v1670197414/CottageBNB/c1rogmskbs7ubqchllgk.avif", "filename": "CottageBNB/c1rogmskbs7ubqchllgk" }
+            ]
+            ,
             description: `Only ${minAway} minutes away from ${randomFacility}!`,
-            geometry: { 
-                "type" : "Point", "coordinates" : [ Cities[random1000].longitude, Cities[random1000].latitude ] 
+            geometry: {
+                "type": "Point", "coordinates": [Cities[random1000].longitude, Cities[random1000].latitude]
             }
-    });
+        });
         await newCottage.save();
     }
 }

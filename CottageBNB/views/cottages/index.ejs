@@ -12,7 +12,8 @@
                 <% if (cottage.images.length == 0) { %>
                     <img class="img-card-top" alt="" src="https://res.cloudinary.com/dfkwvksuu/image/upload/v1668205152/YelpCamp/apnuzkgskx6tbbjaoyj3.avif">
                 <% } else { %>
-                    <img class="img-card-top" alt="" src="<%=cottage.images[0].url%>">
+                    <% let randomImgToDisplayNum =  Math.floor(Math.random() * cottage.images.length); %> 
+                    <img class="img-card-top" alt="" src="<%=cottage.images[randomImgToDisplayNum].url%>">
                 <% } %> 
                 <div class="card-body">
                     <h5 class="card-title"><%= cottage.title %></h5>
